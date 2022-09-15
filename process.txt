@@ -1,0 +1,19 @@
+1.create Project folder
+2. npm init -y
+3. install dependencises : cors,dotenv,express,mongoose,morgn,nodemon
+4. create File app.js
+5. create .env file
+    ---> PORT=3300
+    ---> CONNECTION_URL="mongodb+srv://admin:admin@cluster0.mxshmtf.mongodb.net/eshop"
+
+6. create Product..json
+7. require the all CONNECTION
+        ---> express
+        ---> dotenv
+        ---> morgan
+        ---> cors
+        ---> mongoose
+        
+8. add nodemon in pakage.json ---> "start":"nodemon app.js"
+9. Connect the project with mongodb atlast with link
+10. npm start 
