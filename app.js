@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 
 app.use(morgan("tiny"));
 app.use(cors());
+app.use(express.json());
 
 mongoose.connect(process.env.CONNECTION_URL)
     .then(() => {
@@ -16,14 +17,54 @@ mongoose.connect(process.env.CONNECTION_URL)
         console.log(err);
 })
 
-app.get('/', (req, res) => { 
-    res.send("Hello World");
+
+// Schema
+const productSchema = mongoose.Schema({
+    name: String,
+    image: String,
+    countInStock:{
+        type: Number,
+        require:true
+    }
 })
 
-app.post('/post', (req, res) => {
-    res.send("Welcome to Your World");
+//model
+
+const Product =mongoose.model('Product',productSchema);
+
+app.post('/',(req,res)=>{
+    const product = new Product({
+        name:req.body.name,
+        image:req.body.image,
+        countInStock:req.body.countInStock.type,
+    });
+console.log(product)
+    product
+        .save()
+        .then((createdProduct)=>{
+            res.status(201).json(createdProduct);
+        })
+        .catch((err)=>{
+            res.status(500).json({
+                error:err,
+                success:false,
+            });
+        });
+});
+
+
+app.get('/',(req,res)=>{
+    product.find().then((products)=>{
+        res.status(200).json(products);
+    }).catch((err)=>{
+        res.status(500).json({
+            error:err,
+            success:false 
+        })
+    })
 })
 
+// server
 app.listen(process.env.port, () => {
     console.log(`App Listening on the port ${process.env.port}`);
 })
