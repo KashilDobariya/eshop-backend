@@ -1,6 +1,7 @@
 const express = require("express")
 const app = express()
-const dotenv=require('dotenv').config()
+const dotenv = require('dotenv').config();
+const bodyParser = require("body-parser");
 const morgan = require('morgan');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -11,11 +12,14 @@ app.options("*", cors());
 
 // middleware
 app.use(morgan("tiny"));
-app.use(express.json());
+app.use(bodyParser.json());
 
 //Routes
+const categoriesRoutes = require("./routes/categories");
 const productRoutes = require("./routes/products");
+app.use('/categories', categoriesRoutes);
 app.use('/products', productRoutes);
+
 
 // database
 mongoose.connect(process.env.CONNECTION_URL)
