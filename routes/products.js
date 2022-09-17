@@ -32,7 +32,6 @@ router.get('/get/count', async (req, res) => {
     
     if (!productCount) {
         res.status(500).json({ success: false });
-        
     }
     res.send({
         productCount: productCount,
