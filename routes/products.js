@@ -28,10 +28,11 @@ router.get('/:id', async (req, res) => {
 });
 
 router.get('/get/count', async (req, res) => {
-    const productCount = await Product.countDocuments((count) => count);
+    const productCount = await Product.countDocuments();
     
     if (!productCount) {
         res.status(500).json({ success: false });
+        
     }
     res.send({
         productCount: productCount,
