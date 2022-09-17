@@ -1,18 +1,27 @@
-const { Product } = require("../models/product");
-const express = require('express');
+const {Product}= require("../models/product")
+const express = require("express");
+const { Category } = require("../models/category");
 const router = express.Router();
+const mongoose = require('mongoose');
 
-router.get('/', async (req, res) => {
-    const productList = await Product.find();
+//get 
+router.get("/",async(req,res)=>{ 
+    const productList=await Product.find(); 
+    if(!productList){ 
+        res.status(500).json({   
+            success:false 
+        }); 
+    } 
+    res.send(productList) 
+}) 
 
-    if (!productList) {
-        res.status(500).json({ success: false });
-    }
-    res.send(productList);
-});
 
-router.post('/',(req,res)=>{
-    const product = new Product({
+//post 
+router.post("/",async(req,res)=>{ 
+    let category = await Category.findById(req.body.category);
+    if(!category) return res.status(400).send("Invalid Category")
+
+    let product=new Product({ 
         name:req.body.name, 
         description:req.body.description, 
         richDescription:req.body.richDescription, 
@@ -20,35 +29,31 @@ router.post('/',(req,res)=>{
         images:req.body.images, 
         brand:req.body.brand, 
         price:req.body.price, 
-        // category : req.body.category, 
+        category : req.body.category, 
         countInStock:req.body.countInStock, 
         rating:req.body.rating, 
         numReviews:req.body.numReviews, 
         isFeatured:req.body.isFeatured 
-    });
-
-    console.log(product)
-    
-    product
-        .save()
-        .then((createdProduct)=>{
-            res.status(201).json(createdProduct);
-        })
-        .catch((err)=>{
-            res.status(500).json({
-                error:err,
-                success:false,
-            });
-        });
-});
-
-//put 
+    }) 
+    await product.save() 
+            .then((createproduct)=>{ 
+                 
+                    res.status(201).json(createproduct) 
+                }) 
+            .catch((err)=>{ 
+            res.status(500).json({ 
+            error:err, 
+            success:false 
+        }) 
+    }) 
+}) 
+ //put 
 router.put("/:id",async(req,res)=>{ 
-    // if(!mongoose.isValidObjectId(req.params.id)){ 
-    //     return res.status(400).send("Invalid Product Id") 
-    // // } 
-    // let category=await Category.findById(req.body.category) 
-    // if(!category) return res.status(400).send("Invalid Category") 
+    if(!mongoose.isValidObjectId(req.params.id)){ 
+        return res.status(400).send("Invalid Product Id") 
+    } 
+    let category=await Category.findById(req.body.category) 
+    if(!category) return res.status(400).send("Invalid Category") 
  
     let product=await Product.findByIdAndUpdate( 
       req.params.id, 
@@ -60,7 +65,7 @@ router.put("/:id",async(req,res)=>{
         images : req.body.images, 
         brand : req.body.brand, 
         price : req.body.price, 
-        // category : req.body.category,    
+        category : req.body.category,    
         countInStock : req.body.countInStock, 
         rating : req.body.rating, 
         numReviews : req.body.numReviews, 
@@ -94,4 +99,4 @@ router.put("/:id",async(req,res)=>{
 }); 
  
 
-module.exports = router;
+module.exports=router;
