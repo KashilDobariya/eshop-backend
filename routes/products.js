@@ -2,7 +2,7 @@ const {Product}= require("../models/product")
 const express = require("express");
 const { Category } = require("../models/category");
 const router = express.Router();
-const mongoose = require('mongoose');
+const mongoose=require('mongoose');
 
 //get 
 router.get("/",async(req,res)=>{ 
@@ -22,18 +22,18 @@ router.post("/",async(req,res)=>{
     if(!category) return res.status(400).send("Invalid Category")
 
     let product=new Product({ 
-        name:req.body.name, 
-        description:req.body.description, 
-        richDescription:req.body.richDescription, 
-        image:req.body.image, 
-        images:req.body.images, 
-        brand:req.body.brand, 
-        price:req.body.price, 
+        name : req.body.name, 
+        description : req.body.description, 
+        richDescription : req.body.richDescription, 
+        image : req.body.image, 
+        images : req.body.images, 
+        brand : req.body.brand, 
+        price : req.body.price, 
         category : req.body.category, 
-        countInStock:req.body.countInStock, 
-        rating:req.body.rating, 
-        numReviews:req.body.numReviews, 
-        isFeatured:req.body.isFeatured 
+        countInStock : req.body.countInStock, 
+        rating : req.body.rating, 
+        numReviews : req.body.numReviews, 
+        isFeatured : req.body.isFeatured 
     }) 
     await product.save() 
             .then((createproduct)=>{ 
