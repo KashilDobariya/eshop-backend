@@ -68,7 +68,7 @@ router.post("/",async(req,res)=>{
     let category = await Category.findById(req.body.category);
     if(!category) return res.status(400).send("Invalid Category")
 
-    let product=new Product({ 
+    let product = new Product({
         name : req.body.name, 
         description : req.body.description, 
         richDescription : req.body.richDescription, 

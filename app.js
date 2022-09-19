@@ -17,8 +17,10 @@ app.use(bodyParser.json());
 //Routes
 const categoriesRoutes = require("./routes/categories");
 const productRoutes = require("./routes/products");
+const usersRoutes = require("./routes/users");
 app.use('/categories', categoriesRoutes);
 app.use('/products', productRoutes);
+app.use('/users', usersRoutes);
 
 
 // database
