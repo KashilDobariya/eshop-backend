@@ -1,6 +1,5 @@
-const { user, User } = require("../models/user");
+const { User } = require("../models/user");
 const express = require("express");
-const { route } = require("./products");
 const router = express.Router();
 
 // GET
