@@ -30,10 +30,10 @@ mongoose.connect(process.env.CONNECTION_URL)
     })
     .catch((err) => {
         console.log(err);
-})
+    });
 
 
 // server
 app.listen(process.env.port, () => {
     console.log(`App Listening on the port ${process.env.port}`);
-})
+});
