@@ -1,6 +1,8 @@
 const { User } = require("../models/user");
 const express = require("express");
 const router = express.Router();
+const mongoose=require('mongoose');
+
 
 // GET
 router.get('/', async (req, res) => {
@@ -13,7 +15,7 @@ router.get('/', async (req, res) => {
 
 // POST
 router.post("/", async (req, res) => {
-    let category = new Category({
+    let user = new User({
         name : req.body.name,
         email : req.body.email,
         passwordHash : req.body.passwordHash,
@@ -25,14 +27,14 @@ router.post("/", async (req, res) => {
         city : req.body.city,
         country : req.body.country,
     });
-    category = await category.save();
-    if (!category) return res.status(400).send("the category cannot be created");
-    res.send(category);
+    user = await user.save();
+    if (!user) return res.status(400).send("the category cannot be created");
+    res.send(user);
 });
 
 // Update
 router.put("/:id", async (req, res) => {
-    const category = await Category.findByIdAndUpdate(
+    const user = await User.findByIdAndUpdate(
         req.params.id, {
             name : req.body.name,
             email : req.body.email,
@@ -47,19 +49,19 @@ router.put("/:id", async (req, res) => {
     },
         { new: true }
     );
-    if (!category) return res.status(400).send("the category cannot be created");
-    res.send(category);
+    if (!user) return res.status(400).send("The user cannot be Found");
+    res.send(user);
 });
 
 // Delete
 router.delete("/:id", (req, res) => {
-    Category.findByIdAndRemove(req.params.id)
-        .then((category) => {
-            if (category) {
-                return res.status(200).json({ success: true, message: "the category is deleted" });
+    User.findByIdAndRemove(req.params.id)
+        .then((user) => {
+            if (user) {
+                return res.status(200).json({ success: true, message: "The user is deleted" });
             }
             else {
-                return res.status(500).json({ success: false, message: "category not fpounf!" });
+                return res.status(500).json({ success: false, message: "User not Found!" });
             }
         })
         .catch((err) => {
