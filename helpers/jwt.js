@@ -1,14 +1,21 @@
-const { expressJwt } = require("express-Jwt");
+// const { Router } = require("express");
+const { expressjwt:expressjwt } = require("express-jwt");
 
-function authJwt () {
+function authjwt(){
     const secret = process.env.secret;
-    // const api = process.env.API_URL;
-    expressJwt(
-        {
-            secret,
-            algorithms: ["HS256"],
-            // isRevoked: isRevoked,
-        });
+    const api = process.env.API_URL;
+
+    return expressjwt({
+        secret,
+        algorithms:["HS256"],
+        //isRevoked : isRevoked,
+    }).unless({
+        path : [
+            //{url : /\/api}\
+            `/users/login`,
+            `/users/register`
+        ],
+    });
 }
 
-module.exports = authJwt;
+module.exports = authjwt;

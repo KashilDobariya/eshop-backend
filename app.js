@@ -14,6 +14,7 @@ app.options("*", cors());
 // middleware
 app.use(bodyParser.json());
 app.use(morgan("tiny"));
+app.use(authJwt());
 
 //Routes
 const categoriesRoutes = require("./routes/categories");
@@ -22,7 +23,6 @@ const usersRoutes = require("./routes/users");
 app.use('/categories', categoriesRoutes);
 app.use('/products', productRoutes);
 app.use('/users', usersRoutes);
-app.use(authJwt);
 
 
 // database
