@@ -14,15 +14,17 @@ app.options("*", cors());
 // middleware
 app.use(bodyParser.json());
 app.use(morgan("tiny"));
-app.use(authJwt());
+// app.use(authJwt());
 
 //Routes
 const categoriesRoutes = require("./routes/categories");
 const productRoutes = require("./routes/products");
 const usersRoutes = require("./routes/users");
+const ordersRotes = require("./routes/orders");
 app.use('/categories', categoriesRoutes);
 app.use('/products', productRoutes);
 app.use('/users', usersRoutes);
+app.use('/orders', ordersRotes);
 
 
 // database
