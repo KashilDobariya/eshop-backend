@@ -1,4 +1,4 @@
-// const { Router } = require("express");
+const { Router } = require("express");
 const { expressjwt:expressjwt } = require("express-jwt");
 
 function authjwt(){
