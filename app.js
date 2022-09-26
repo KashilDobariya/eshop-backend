@@ -28,7 +28,11 @@ app.use('/orders', ordersRotes);
 
 
 // database
-mongoose.connect(process.env.CONNECTION_URL)
+mongoose.connect(process.env.CONNECTION_URL, {
+    
+    dbName: process.env.dbName
+})
+    
     .then(() => {
         console.log("Databse Conncetions is Ready.....")
     })
