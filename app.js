@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const morgan = require('morgan');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const authJwt = require("./helpers/Jwt");
+// const authJwt = require("./helpers/Jwt");
 
 
 app.use(cors());
@@ -14,7 +14,7 @@ app.options("*", cors());
 // middleware
 app.use(bodyParser.json());
 app.use(morgan("tiny"));
-app.use(authJwt());
+// app.use(authJwt());
 
 //Routes
 const categoriesRoutes = require("./routes/categories");
