@@ -1,4 +1,4 @@
-const express = require("express")
+const express = require("express");
 const app = express();
 const dotenv = require('dotenv').config();
 const bodyParser = require("body-parser");
@@ -30,7 +30,7 @@ app.use('/orders', ordersRotes);
 // database
 mongoose.connect(process.env.CONNECTION_URL, {
     
-    dbName: process.env.dbName
+    // dbName: process.env.dbName
 })
     
     .then(() => {
